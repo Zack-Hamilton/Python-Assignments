@@ -5,6 +5,8 @@ def menu():
     print("1) Fill");
     print("2) Print");
     print("3) Linear Search");
+    print("4) Binary Search");
+    print("5) Bubble sort (Inefficent)");
     print("7) Quit");
 
 def fill(data):
@@ -25,25 +27,58 @@ def linear_search(data,search_item):
             i = i + 1;
     return found;
 
-arr = [0] * MAX;
-item_to_search = 0;
-choice = 0;
-
-while (choice != 7):
-    menu();
-    choice = int(input("Enter your choice:"));
-    print("");
-
-    if (choice == 1):
-        fill(arr);
-    elif (choice == 2):
-        printing(arr);
-    elif (choice == 3):
-        item_to_search = int(input("Enter what you are looking for:"));
-        print("");
-        if (linear_search(arr, item_to_search) ==  True):
-            print("Item found");
-            print("");
+def binary_search(data,search_item):
+    Low = 0;
+    High = MAX - 1;
+    while (Low <= High):
+        Mid = (Low + High) // 2
+        if (data[Mid] == search_item):
+            return Mid;
+        elif (search_item > data[Mid]):
+            Low = Mid + 1;
         else:
-            print("Item not found");
+            High = Mid - 1;
+    return -1;
+
+def bubble_sort(data):
+    i = 9
+    swapped = True;
+    while not(swapped):
+        j = 0;
+        while (j < i):
+            if 
+
+def main():
+    arr = [0] * MAX;
+    item_to_search = 0;
+    choice = 0;
+
+    while (choice != 7):
+        menu();
+        choice = int(input("Enter your choice:"));
+        print("");
+
+        if (choice == 1):
+            fill(arr);
+        elif (choice == 2):
+            printing(arr);
+        elif (choice == 3):
+            item_to_search = int(input("Enter what you are looking for:"));
             print("");
+            if (linear_search(arr, item_to_search) ==  True):
+                print("Item found");
+                print("");
+            else:
+                print("Item not found");
+                print("");
+        elif (choice == 4):
+            item_to_search = int(input("Enter what you are looking for:"));
+            print("");
+            if (binary_search(arr, item_to_search) ==  True):
+                print("Item found");
+                print("");
+            else:
+                print("Item not found");
+                print("");
+
+main();
