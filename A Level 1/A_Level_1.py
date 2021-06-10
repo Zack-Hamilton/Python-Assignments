@@ -7,7 +7,9 @@ def menu():
     print("3) Linear Search");
     print("4) Binary Search");
     print("5) Bubble sort (Inefficent)");
-    print("7) Quit");
+    print("6) Bubble sort (Efficent)");
+    print("7) Insertion sort");
+    print("8) Quit");
 
 def fill(data):
     for i in range (0, MAX):
@@ -40,13 +42,33 @@ def binary_search(data,search_item):
             High = Mid - 1;
     return -1;
 
-def bubble_sort(data):
-    i = 9
-    swapped = True;
-    while not(swapped):
+def bubble_sort_in(data):
+    i = 9;
+    for m in range (1, MAX):
         j = 0;
         while (j < i):
-            if 
+            if (data[j] > data[j + 1]):
+                Temp = data[j];
+                data[j] = data[j + 1];
+                data [j + 1] = Temp;
+            j = j + 1
+        i = i - 1;
+      
+def bubble_sort_ef(data):
+    i = 9;
+    swapped = False;
+    while not(swapped):
+        for m in range (1, MAX):
+            j = 0;
+            while (j < i):
+                if (data[j] > data[j + 1]):
+                    Temp = data[j];
+                    data[j] = data[j + 1];
+                    data [j + 1] = Temp;
+                else:
+                   swapped = True;
+                j = j + 1
+            i = i - 1;
 
 def main():
     arr = [0] * MAX;
@@ -80,5 +102,9 @@ def main():
             else:
                 print("Item not found");
                 print("");
+        elif (choice == 5):
+            bubble_sort_in(arr);
+        elif (choice == 6):
+            bubble_sort_ef(arr);
 
 main();
