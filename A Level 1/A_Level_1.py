@@ -57,6 +57,7 @@ def bubble_sort_in(data):
 def bubble_sort_ef(data):
     i = 9;
     swapped = False;
+<<<<<<< HEAD
     for m in range (1, MAX):
         swapped = True;
         j = 0;
@@ -70,6 +71,20 @@ def bubble_sort_ef(data):
         i = i - 1;
         if swapped:
             return;
+=======
+    while not(swapped):
+        for m in range (1, MAX):
+            j = 0;
+            while (j < i):
+                if (data[j] > data[j + 1]):
+                    Temp = data[j];
+                    data[j] = data[j + 1];
+                    data [j + 1] = Temp;
+                else:
+                   swapped = True;
+                j = j + 1
+            i = i - 1;
+>>>>>>> a403a87ab38556319a669efdfa7f30afac62c09f
 
 def main():
     arr = [0] * MAX;
