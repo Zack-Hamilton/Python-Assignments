@@ -1,48 +1,113 @@
-HeadPtr = -1
-FreePtr = 0
+HeadPtr = -1;
+FreePtr = 0;
 
 def menu():
-    print("1) Add Item")
-    print("2) Remove Item")
-    print("3) Traverse")
-    print("4) Search")
-    print("5) Quit")
+    print("1) Add Item");
+    print("2) Remove Item");
+    print("3) Traverse");
+    print("4) Search");
+    print("5) Quit");
     
 def init(Arr,NextPt):
-    HeadPtr =  -1
-    FreePtr =  0
+    HeadPtr =  -1;
+    FreePtr =  0;
 
     for i in range(0,9):
-        Arr[i] = ""
-        NextPt[i] = i + 1
+        Arr[i] = "";
+        NextPt[i] = i + 1;
 
-    Arr[9] = ""
-    NextPt[9]  = -1
+    Arr[9] = "";
+    NextPt[9]  = -1;
 
-def traverse(Arr,NextPt):
-    global HeadPtr
-    global FreePtr
+def add(Arr,Next,NewItem):
+    global HeadPtr;
+    global FreePtr;
+    
+    if (FreePtr == -1):
+        print("No node free.");
+        print("");
+    else:
+        NewPtr = FreePtr;
+        FreePtr = Next[FreePtr];
+        Arr[NewPtr] = NewItem;
+        CurrentPtr = HeadPtr;
+        
+        while (Arr[CurrentPtr] < NewItem) and (CurrentPtr != -1):
+            PreviousPtr = CurrentPtr;
+            CurrentPtr = Next[CurrentPtr];
+
+        if (CurrentPtr == HeadPtr):
+            Next[NewPtr] = HeadPtr;
+            HeadPtr = NewPtr;
+        else:
+            Next[PreviousPtr] = NewPtr;
+            NewPtr = CurrentPtr;
+
+
+def traverse(Arr,Next):
+    global HeadPtr;
+    global FreePtr;
 
     if (HeadPtr == -1):
-        print("Linked List is empty")
+        print("Linked List is empty");
+        print("");
     else:
-        CurrentPtr = HeadPtr
+        CurrentPtr = HeadPtr;
         while (CurrentPtr != -1):
-            print(Arr[CurrentPtr])
-            CurrentPtr = Next[CurrentPtr]
-    return;
+            print(Arr[CurrentPtr]);
+            CurrentPtr = Next[CurrentPtr];
+
+def search(Arr,Next,SearchItem):
+    global HeadPtr;
+
+    CurrentPtr = 0;
+
+    if (HeadPtr == -1):
+        print("Linked List is empty");
+        print("");
+    else:
+        CurrentPtr = HeadPtr;
+        Found = False;
+
+        while (CurrentPtr != -1):
+            if (Arr[CurrentPtr] == SearchItem):
+                Found = True;
+                return Found;
+            else:
+                CurrentPtr = Next[CurrentPtr];
+        
+    return Found;
 
 def main():
-    Data = [""] * 10
-    NextPtr = [0] * 10
-    choice = 0
+    Data = [0] * 10;
+    NextPtr = [0] * 10;
 
-    menu();
+    for i in range(0,10):
+        NextPtr[i] = i + 1;
+    NextPtr[9] = -1;
+    
+    choice = 0;
 
-    choice = int(input("Enter your choice"))
     while choice != 5:
-        if (choice == 3):
+        menu();
+        choice = int(input("Enter your choice:"));
+        print("");
+        
+        if (choice == 1):
+            ItemAdd = int(input("Enter a new item:"));
+            print("");
+
+            add(Data,NextPtr,ItemAdd);
+        elif (choice == 3):
             traverse(Data,NextPtr);
+        elif (choice == 4):
+            ItemSearch = int(input("Enter an item to search:"));
+            if (search(Data,NextPtr,ItemSearch) == True):
+                print("Item found!");
+                print("");
+            else:
+                print("Item not found.");
+                print("");
 
 main();
 
