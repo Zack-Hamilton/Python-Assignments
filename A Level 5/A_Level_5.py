@@ -41,13 +41,34 @@ def add(Arr,Next,NewItem):
             HeadPtr = NewPtr;
         else:
             Next[PreviousPtr] = NewPtr;
-            NewPtr = CurrentPtr;
+            Next[NewPtr] = CurrentPtr;
 
+def remove(Arr,Next,RemItem):
+    global HeadPtr;
+    global FreePtr;
+    
+    if (HeadPtr == -1):
+        print("Linked List is empty");
+    else:
+        CurrentPtr = HeadPtr;
+
+        while (Arr[CurrentPtr] != RemItem):
+            PreviousPtr = CurrentPtr;
+            CurrentPtr = Next[CurrentPtr];
+
+        if (CurrentPtr == HeadPtr):
+            HeadPtr = Next[CurrentPtr];
+        else:
+            Next[PreviousPtr] = Next[CurrentPtr];    
+
+        Arr[CurrentPtr] = 0;
+        Next[CurrentPtr] = FreePtr;
+        FreePtr = CurrentPtr;
 
 def traverse(Arr,Next):
     global HeadPtr;
     global FreePtr;
-
+    
     if (HeadPtr == -1):
         print("Linked List is empty");
         print("");
@@ -57,7 +78,7 @@ def traverse(Arr,Next):
             print(Arr[CurrentPtr]);
             CurrentPtr = Next[CurrentPtr];
 
-def search(Arr,Next,SearchItem):
+def search(Arr,Next):
     global HeadPtr;
 
     CurrentPtr = 0;
@@ -65,9 +86,14 @@ def search(Arr,Next,SearchItem):
     if (HeadPtr == -1):
         print("Linked List is empty");
         print("");
+
+        return;
     else:
         CurrentPtr = HeadPtr;
         Found = False;
+
+        SearchItem = int(input("Enter an item to search:"));
+        print("");
 
         while (CurrentPtr != -1):
             if (Arr[CurrentPtr] == SearchItem):
@@ -98,11 +124,17 @@ def main():
             print("");
 
             add(Data,NextPtr,ItemAdd);
+
+        if (choice == 2):
+            ItemRemove = int(input("Enter item to remove:"));
+            print("");
+
+            remove(Data,NextPtr,ItemRemove);
+
         elif (choice == 3):
             traverse(Data,NextPtr);
         elif (choice == 4):
-            ItemSearch = int(input("Enter an item to search:"));
-            if (search(Data,NextPtr,ItemSearch) == True):
+            if (search(Data,NextPtr) == True):
                 print("Item found!");
                 print("");
             else:
